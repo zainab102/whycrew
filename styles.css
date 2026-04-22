@@ -1,0 +1,935 @@
+:root {
+  --bg-app: #0b0c10;
+  --panel: rgba(20, 22, 28, 0.85);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text: #eef1f6;
+  --muted: rgba(238, 241, 246, 0.68);
+  --input: rgba(255, 255, 255, 0.06);
+  --input-border: rgba(255, 255, 255, 0.12);
+  --gold: #d1b45f;
+  --gold-2: #8f7531;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  --page-w: 210mm;
+  --page-h: 297mm;
+
+  /* Layout variables (tuned via density classes) */
+  --space-top: 14mm;
+  --space-content-top: 10mm;
+  /* Space between subline and body paragraph */
+  --space-body-top: 10mm;
+  --space-pill-top: 12mm;
+  /* Space between body and optional Extras block */
+  --space-extras-top: 8mm;
+  --title-size: 52px;
+  --name-size: 46px;
+  --title-leading: 1.08;
+  --title-mt: 12px;
+  --title-mb: 10px;
+  --presented-mt: 18px;
+  --name-mt: 18px;
+  --subline-mt: 12px;
+
+  /* Template sizing (overridden by size presets) */
+  --paper-pad-top: 22mm;
+  --paper-pad-x: 20mm;
+  --paper-pad-bottom: 56mm;
+  --template-inset: 14mm; /* theme background + inner frame */
+  --frame-gap: 2mm; /* distance between outer + inner border */
+
+  /* Frame styling (theme can override for contrast) */
+  --frame-outer-color: rgba(209, 180, 95, 0.78);
+  --frame-inner-color: rgba(209, 180, 95, 0.42);
+  --frame-outer-width: 1.6px;
+  --frame-inner-width: 1.2px;
+
+  /* Safe insets for header/footer inside the framed template */
+  --edge-safe: 8mm;
+}
+.top {
+  /* Always keep header content safely inside the framed template */
+  padding-left: var(--edge-safe);
+  padding-right: var(--edge-safe);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 600px at 25% 10%, rgba(209, 180, 95, 0.08), transparent 55%),
+    radial-gradient(900px 500px at 80% 20%, rgba(255, 255, 255, 0.06), transparent 55%),
+    linear-gradient(180deg, #0b0c10, #07080b);
+  color: var(--text);
+}
+
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+}
+
+.panel {
+  padding: 18px 16px 14px;
+  border-right: 1px solid var(--panel-border);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel__header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #fff, #999);
+  box-shadow: 0 0 0 2px rgba(209, 180, 95, 0.25), 0 0 0 6px rgba(209, 180, 95, 0.08);
+}
+
+.brand__title {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.brand__sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.panel__section {
+  display: grid;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  user-select: none;
+}
+
+.toggle input {
+  width: 16px;
+  height: 16px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.35px;
+}
+
+.hint {
+  font-size: 12px;
+  color: rgba(238, 241, 246, 0.55);
+}
+
+.input {
+  width: 100%;
+  padding: 10px 11px;
+  border-radius: 12px;
+  border: 1px solid var(--input-border);
+  background: var(--input);
+  color: var(--text);
+  outline: none;
+}
+
+.input--textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.4;
+}
+
+.btn {
+  border: 1px solid var(--input-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.btn--primary {
+  border-color: rgba(209, 180, 95, 0.35);
+  background: linear-gradient(180deg, rgba(209, 180, 95, 0.18), rgba(209, 180, 95, 0.08));
+}
+
+.btn--primary:hover {
+  background: linear-gradient(180deg, rgba(209, 180, 95, 0.22), rgba(209, 180, 95, 0.1));
+}
+
+.btn--ghost {
+  background: transparent;
+}
+
+.panel__footer {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--panel-border);
+}
+
+.stage {
+  padding: 26px 26px;
+  overflow: auto;
+}
+
+.page {
+  width: var(--page-w);
+  height: var(--page-h);
+  margin: 0 auto;
+  box-shadow: var(--shadow);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.orient--landscape {
+  --page-w: 297mm;
+  --page-h: 210mm;
+}
+
+.orient--portrait {
+  --page-w: 210mm;
+  --page-h: 297mm;
+}
+
+/* Landscape-specific layout tweaks so it resembles the reference */
+.orient--landscape .paper {
+  --paper-pad-top: 16mm;
+  --paper-pad-x: 18mm;
+  /* Landscape is shorter; reserve more bottom space so the month pill can't collide with the footer badge */
+  --paper-pad-bottom: 54mm;
+}
+
+.orient--landscape .content {
+  --space-content-top: 6mm;
+  /* Keep the month pill safely above the footer badge */
+  --space-pill-top: 8mm;
+}
+
+.orient--landscape .body {
+  max-width: 175mm;
+}
+
+.orient--landscape .bottom {
+  /* align to framed template in all sizes */
+  left: calc(var(--template-inset) + var(--edge-safe));
+  right: calc(var(--template-inset) + var(--edge-safe));
+  /* Lower the footer to avoid colliding with the month pill */
+  bottom: calc(var(--template-inset) + 4mm);
+}
+
+/* Reference: "Original" in landscape should feel like the sample (tight frame, fuller canvas) */
+.orient--landscape.size--original {
+  --template-inset: 7mm;
+  --frame-gap: 2mm;
+  --paper-pad-top: 14mm;
+  --paper-pad-x: 14mm;
+  --paper-pad-bottom: 52mm;
+
+  /* Make landscape original match the reference proportions */
+  --space-top: 9mm;
+  --space-content-top: 4mm;
+  --space-body-top: 5mm;
+  --space-pill-top: 5mm;
+  --title-size: 48px;
+  --name-size: 40px;
+}
+
+.orient--landscape.size--original .body {
+  max-width: 185mm;
+}
+
+.paper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Reserve space so content never collides with footer/badge */
+  padding: var(--paper-pad-top) var(--paper-pad-x) var(--paper-pad-bottom);
+}
+
+/* Layout mode: draggable elements */
+.movable {
+  --move-x: 0%;
+  --move-y: 0%;
+  transform: translate(var(--move-x), var(--move-y));
+  touch-action: none;
+}
+
+.layout--on .movable {
+  cursor: grab;
+}
+
+.layout--on .movable:active {
+  cursor: grabbing;
+}
+
+.layout--on .movable {
+  outline: 1px dashed rgba(209, 180, 95, 0.35);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.layout--on .theme--white .movable,
+.layout--on .theme--ivory .movable,
+.layout--on .theme--blush .movable,
+.layout--on .theme--mint .movable,
+.layout--on .theme--slate .movable {
+  outline-color: rgba(11, 12, 16, 0.22);
+}
+
+.layout--on .movable::after {
+  content: "↕︎↔︎";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  line-height: 1;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(209, 180, 95, 0.55);
+  color: rgba(209, 180, 95, 0.95);
+  pointer-events: none;
+}
+
+.layout--on.theme--white .movable::after,
+.layout--on.theme--ivory .movable::after,
+.layout--on.theme--blush .movable::after,
+.layout--on.theme--mint .movable::after,
+.layout--on.theme--slate .movable::after {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(11, 12, 16, 0.2);
+  color: rgba(11, 12, 16, 0.7);
+}
+
+/* When dragging, keep the active item above others */
+.layout--on .movable.is-dragging {
+  z-index: 5;
+}
+
+.themeBg {
+  position: absolute;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.size--original,
+.size--framed-sm,
+.size--framed-md,
+.size--framed-lg {
+  /* keeps inner template framed */
+}
+
+.size--original {
+  /* Reference “original” (matches the sample certificate picture):
+     bigger framed area, closer to the page edges */
+  --template-inset: 9mm;
+  --frame-gap: 2mm;
+  --paper-pad-top: 18mm;
+  --paper-pad-x: 18mm;
+  --paper-pad-bottom: 48mm;
+
+  /* Make the portrait original feel less empty */
+  --space-top: 12mm;
+  --space-content-top: 7mm;
+  --space-body-top: 8mm;
+  --space-pill-top: 9mm;
+}
+
+.size--framed-sm {
+  --template-inset: 18mm;
+  --frame-gap: 3mm;
+  --paper-pad-top: 20mm;
+  --paper-pad-x: 22mm;
+  --paper-pad-bottom: 52mm;
+}
+
+.size--framed-md {
+  --template-inset: 14mm;
+  --frame-gap: 3mm;
+  --paper-pad-top: 22mm;
+  --paper-pad-x: 20mm;
+  --paper-pad-bottom: 56mm;
+}
+
+.size--framed-lg {
+  --template-inset: 10mm;
+  --frame-gap: 2mm;
+  --paper-pad-top: 24mm;
+  --paper-pad-x: 18mm;
+  --paper-pad-bottom: 58mm;
+}
+
+.size--original .themeBg,
+.size--framed-sm .themeBg,
+.size--framed-md .themeBg,
+.size--framed-lg .themeBg {
+  inset: var(--template-inset);
+}
+
+.size--full .themeBg {
+  inset: 0;
+  border-radius: 0;
+}
+
+.size--original .frame--inner,
+.size--framed-sm .frame--inner,
+.size--framed-md .frame--inner,
+.size--framed-lg .frame--inner {
+  inset: var(--template-inset);
+}
+
+.size--original .frame--outer,
+.size--framed-sm .frame--outer,
+.size--framed-md .frame--outer,
+.size--framed-lg .frame--outer {
+  inset: calc(var(--template-inset) - var(--frame-gap));
+}
+
+.size--full .frame--inner {
+  inset: 12mm;
+}
+
+.size--full .frame--outer {
+  inset: 9mm;
+}
+
+.top,
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.frame,
+.bottom {
+  z-index: 1;
+}
+
+.frame {
+  position: absolute;
+  inset: 10mm;
+  border-radius: 10px;
+  pointer-events: none;
+  /* Helps borders stay visible on dark gradients + in PDF */
+  box-shadow: 0 0 0 0.5px rgba(209, 180, 95, 0.08), 0 0 20px rgba(209, 180, 95, 0.06);
+}
+
+.frame--outer {
+  inset: 9mm;
+  border: var(--frame-outer-width) solid var(--frame-outer-color);
+}
+
+.frame--inner {
+  inset: 12mm;
+  border: var(--frame-inner-width) solid var(--frame-inner-color);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: var(--space-top);
+}
+
+.logoWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 180, 95, 0.55);
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+  padding: 10px;
+}
+
+.logo--invert {
+  filter: invert(1) brightness(0.1) contrast(1.2);
+}
+
+.company__name {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: rgba(209, 180, 95, 0.9);
+  text-transform: uppercase;
+}
+
+.content {
+  text-align: center;
+  margin-top: var(--space-content-top);
+}
+
+.kicker {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(238, 241, 246, 0.58);
+}
+
+.title {
+  margin: var(--title-mt) 0 var(--title-mb);
+  font-size: var(--title-size);
+  line-height: var(--title-leading);
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  color: rgba(209, 180, 95, 0.98);
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  white-space: pre-line;
+}
+
+.presented {
+  margin-top: var(--presented-mt);
+  font-size: 10px;
+  letter-spacing: 2.8px;
+  color: rgba(238, 241, 246, 0.55);
+}
+
+.name {
+  margin-top: var(--name-mt);
+  font-size: var(--name-size);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.98);
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.subline {
+  margin-top: var(--subline-mt);
+  font-size: 12px;
+  letter-spacing: 2.2px;
+  color: rgba(209, 180, 95, 0.9);
+  text-transform: uppercase;
+}
+
+.body {
+  margin: var(--space-body-top) auto 0;
+  max-width: 140mm;
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(238, 241, 246, 0.74);
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+
+.pillRow {
+  display: grid;
+  place-items: center;
+  margin-top: var(--space-pill-top);
+}
+
+/* Density presets */
+.page.density--compact {
+  --space-top: 10mm;
+  --space-content-top: 6mm;
+  --space-body-top: 8mm;
+  --space-pill-top: 9mm;
+  --title-size: 46px;
+  --name-size: 40px;
+  --title-leading: 1.06;
+  --title-mt: 10px;
+  --title-mb: 8px;
+  --presented-mt: 14px;
+  --name-mt: 14px;
+  --subline-mt: 10px;
+}
+
+.page.density--balanced {
+  --space-top: 16mm;
+  --space-content-top: 12mm;
+  --space-body-top: 12mm;
+  --space-pill-top: 14mm;
+  --title-size: 52px;
+  --name-size: 46px;
+  --title-leading: 1.08;
+  --title-mt: 14px;
+  --title-mb: 12px;
+  --presented-mt: 20px;
+  --name-mt: 18px;
+  --subline-mt: 14px;
+}
+
+.page.density--airy {
+  --space-top: 18mm;
+  --space-content-top: 14mm;
+  --space-body-top: 12mm;
+  --space-pill-top: 16mm;
+  --title-size: 56px;
+  --name-size: 50px;
+  --title-leading: 1.1;
+  --title-mt: 16px;
+  --title-mb: 14px;
+  --presented-mt: 22px;
+  --name-mt: 20px;
+  --subline-mt: 16px;
+}
+
+/* Extras block */
+.extras {
+  display: none;
+  margin: var(--space-extras-top, 8mm) auto 0;
+  max-width: 150mm;
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(238, 241, 246, 0.7);
+}
+
+.extras.is-visible {
+  display: block;
+}
+
+.extras--below-body {
+}
+
+.extras--above-footer {
+  margin-top: 0;
+  position: absolute;
+  left: calc(var(--template-inset) + var(--edge-safe));
+  right: calc(var(--template-inset) + var(--edge-safe));
+  bottom: calc(var(--template-inset) + 34mm);
+  text-align: center;
+}
+
+.extras--top-right {
+  margin-top: 0;
+  position: absolute;
+  top: 22mm;
+  right: 20mm;
+  width: 70mm;
+  text-align: right;
+}
+
+.theme--white .extras,
+.theme--ivory .extras,
+.theme--blush .extras,
+.theme--mint .extras,
+.theme--slate .extras {
+  color: rgba(11, 12, 16, 0.68);
+}
+
+.pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 180, 95, 0.55);
+  color: rgba(209, 180, 95, 0.95);
+  font-size: 11px;
+  letter-spacing: 2.3px;
+  text-transform: uppercase;
+}
+
+.bottom {
+  position: absolute;
+  left: calc(var(--template-inset) + var(--edge-safe));
+  right: calc(var(--template-inset) + var(--edge-safe));
+  bottom: calc(var(--template-inset) + 8mm);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 18px;
+  align-items: end;
+}
+
+.sig {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.sig__line {
+  width: 100%;
+  max-width: 70mm;
+  height: 1px;
+  background: rgba(209, 180, 95, 0.35);
+}
+
+.sig__label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(238, 241, 246, 0.5);
+  text-transform: uppercase;
+}
+
+.badge {
+  width: 78px;
+  height: 78px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.badge__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 180, 95, 0.55);
+  box-shadow: inset 0 0 0 6px rgba(209, 180, 95, 0.08);
+}
+
+.badge__text {
+  width: 60px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  color: rgba(209, 180, 95, 0.9);
+  text-transform: uppercase;
+}
+
+[contenteditable="true"] {
+  outline: none;
+}
+
+[contenteditable="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(209, 180, 95, 0.18);
+  border-radius: 8px;
+}
+
+/* Theme: dark / gold */
+/* Themes apply to the inner template background (.themeBg) */
+.theme--dark-gold .themeBg {
+  background:
+    radial-gradient(900px 450px at 50% 0%, rgba(209, 180, 95, 0.12), transparent 55%),
+    radial-gradient(900px 650px at 20% 55%, rgba(255, 255, 255, 0.06), transparent 55%),
+    linear-gradient(180deg, #0b0c10, #07080b);
+}
+
+/* Theme: white */
+.theme--white .themeBg {
+  background:
+    radial-gradient(800px 450px at 50% 0%, rgba(209, 180, 95, 0.18), transparent 55%),
+    linear-gradient(180deg, #ffffff, #f6f7fb);
+}
+
+.theme--white .kicker,
+.theme--white .presented,
+.theme--white .sig__label,
+.theme--ivory .kicker,
+.theme--ivory .presented,
+.theme--ivory .sig__label,
+.theme--blush .kicker,
+.theme--blush .presented,
+.theme--blush .sig__label,
+.theme--mint .kicker,
+.theme--mint .presented,
+.theme--mint .sig__label,
+.theme--slate .kicker,
+.theme--slate .presented,
+.theme--slate .sig__label {
+  color: rgba(11, 12, 16, 0.55);
+}
+
+.theme--white .name,
+.theme--ivory .name,
+.theme--blush .name,
+.theme--mint .name,
+.theme--slate .name {
+  color: rgba(11, 12, 16, 0.95);
+}
+
+.theme--white .body,
+.theme--ivory .body,
+.theme--blush .body,
+.theme--mint .body,
+.theme--slate .body {
+  color: rgba(11, 12, 16, 0.7);
+}
+
+.theme--white .logoWrap,
+.theme--ivory .logoWrap,
+.theme--blush .logoWrap,
+.theme--mint .logoWrap,
+.theme--slate .logoWrap {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.theme--white .frame--outer,
+.theme--ivory .frame--outer,
+.theme--blush .frame--outer,
+.theme--mint .frame--outer,
+.theme--slate .frame--outer {
+  --frame-outer-color: rgba(143, 117, 49, 0.78);
+  --frame-outer-width: 1.4px;
+}
+
+.theme--white .frame--inner,
+.theme--ivory .frame--inner,
+.theme--blush .frame--inner,
+.theme--mint .frame--inner,
+.theme--slate .frame--inner {
+  --frame-inner-color: rgba(143, 117, 49, 0.42);
+  --frame-inner-width: 1.2px;
+}
+
+/* Light themes */
+.theme--ivory {
+  /* outer page stays white; only inner template is tinted */
+}
+
+.theme--ivory .themeBg {
+  background:
+    radial-gradient(800px 450px at 50% 0%, rgba(209, 180, 95, 0.22), transparent 55%),
+    linear-gradient(180deg, #fffdf7, #f4f1e9);
+}
+
+.theme--blush {
+}
+
+.theme--blush .themeBg {
+  background:
+    radial-gradient(800px 450px at 50% 0%, rgba(209, 180, 95, 0.2), transparent 55%),
+    radial-gradient(700px 420px at 15% 30%, rgba(255, 122, 162, 0.12), transparent 55%),
+    linear-gradient(180deg, #fff7fb, #f7eef4);
+}
+
+.theme--mint {
+}
+
+.theme--mint .themeBg {
+  background:
+    radial-gradient(800px 450px at 50% 0%, rgba(209, 180, 95, 0.18), transparent 55%),
+    radial-gradient(700px 420px at 15% 30%, rgba(65, 210, 160, 0.14), transparent 55%),
+    linear-gradient(180deg, #f5fffb, #ecf8f2);
+}
+
+.theme--slate {
+}
+
+.theme--slate .themeBg {
+  background:
+    radial-gradient(800px 450px at 50% 0%, rgba(209, 180, 95, 0.18), transparent 55%),
+    radial-gradient(700px 420px at 15% 30%, rgba(120, 160, 255, 0.12), transparent 55%),
+    linear-gradient(180deg, #f7f9ff, #eef2fb);
+}
+
+/* Theme: midnight (deep blue) */
+.theme--midnight {
+}
+
+.theme--midnight .themeBg {
+  background:
+    radial-gradient(900px 450px at 50% 0%, rgba(209, 180, 95, 0.12), transparent 55%),
+    radial-gradient(900px 650px at 20% 55%, rgba(120, 160, 255, 0.08), transparent 55%),
+    linear-gradient(180deg, #060a18, #040611);
+}
+
+/* Theme: emerald */
+.theme--emerald {
+}
+
+.theme--emerald .themeBg {
+  background:
+    radial-gradient(900px 450px at 50% 0%, rgba(209, 180, 95, 0.12), transparent 55%),
+    radial-gradient(900px 650px at 20% 55%, rgba(0, 255, 180, 0.08), transparent 55%),
+    linear-gradient(180deg, #07130f, #050c09);
+}
+
+/* Theme: plum */
+.theme--plum {
+}
+
+.theme--plum .themeBg {
+  background:
+    radial-gradient(900px 450px at 50% 0%, rgba(209, 180, 95, 0.12), transparent 55%),
+    radial-gradient(900px 650px at 20% 55%, rgba(190, 120, 255, 0.08), transparent 55%),
+    linear-gradient(180deg, #110713, #09040b);
+}
+
+/* Print / Export */
+@media print {
+  :root {
+    --shadow: none;
+  }
+
+  html,
+  body {
+    height: auto !important;
+  }
+
+  body {
+    background: #fff !important;
+    margin: 0 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .app {
+    display: block;
+  }
+
+  .stage {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .page {
+    width: var(--page-w);
+    height: var(--page-h);
+    margin: 0;
+    border-radius: 0 !important;
+    box-shadow: none;
+    overflow: hidden !important;
+    break-after: avoid-page;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .paper {
+    height: var(--page-h);
+    overflow: hidden !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
+
