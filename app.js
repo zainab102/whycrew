@@ -148,6 +148,7 @@ function boot() {
     extrasText: "",
     layoutMode: false,
     layoutPositions: {},
+    rememberLayout: false,
     companyName: "WHYCREW",
     titleLine: "Employee\nof the Month",
     recipientName: "Haider Abbas",
@@ -169,12 +170,17 @@ function boot() {
   if (!String(state.density || "").trim()) state.density = defaults.density;
   if (!String(state.orientation || "").trim()) state.orientation = defaults.orientation;
   if (!String(state.extrasPlacement || "").trim()) state.extrasPlacement = defaults.extrasPlacement;
+  if (typeof state.rememberLayout !== "boolean") state.rememberLayout = defaults.rememberLayout;
+
+  // Default behavior: do not carry over drags across reloads unless user opts in.
+  if (!state.rememberLayout) state.layoutPositions = {};
 
   const theme = $("theme");
   const templateSize = $("templateSize");
   const density = $("density");
   const orientation = $("orientation");
   const layoutMode = $("layoutMode");
+  const rememberLayout = $("rememberLayout");
   const resetLayout = $("resetLayout");
   const logoFile = $("logoFile");
   const clearLogo = $("clearLogo");
@@ -295,6 +301,8 @@ function boot() {
     applyLayoutMode(state.layoutMode);
     applyPositionsToDom();
 
+    rememberLayout.checked = Boolean(state.rememberLayout);
+
     extrasEnabled.checked = Boolean(state.extrasEnabled);
     extrasPlacement.value = state.extrasPlacement;
     extrasText.value = state.extrasText;
@@ -326,7 +334,13 @@ function boot() {
   }
 
   function persist() {
-    saveState(state);
+    if (state.rememberLayout) {
+      saveState(state);
+      return;
+    }
+    // Don't persist dragged positions unless user opts in.
+    const { layoutPositions, ...rest } = state;
+    saveState({ ...rest, layoutPositions: {} });
   }
 
   // Drag behavior for [data-move] elements (percent-based).
@@ -459,6 +473,16 @@ function boot() {
   layoutMode.addEventListener("change", () => {
     state.layoutMode = layoutMode.checked;
     applyLayoutMode(state.layoutMode);
+    persist();
+  });
+
+  rememberLayout.addEventListener("change", () => {
+    state.rememberLayout = rememberLayout.checked;
+    // If turning off, clear saved positions so next load is clean.
+    if (!state.rememberLayout) {
+      state.layoutPositions = {};
+      applyPositionsToDom();
+    }
     persist();
   });
 
