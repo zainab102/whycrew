@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WhyCrew Certificate</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="panel no-print" aria-label="Controls">
+        <div class="panel__header">
+          <div class="brand">
+            <div class="brand__dot" aria-hidden="true"></div>
+            <div class="brand__text">
+              <div class="brand__title">WhyCrew</div>
+              <div class="brand__sub">Certificate Builder</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="theme">Theme</label>
+          <select id="theme" class="input">
+            <option value="dark-gold">Black / Gold</option>
+            <option value="white">White</option>
+            <option value="ivory">Ivory / Gold</option>
+            <option value="blush">Blush / Rose Gold</option>
+            <option value="mint">Mint / Gold</option>
+            <option value="slate">Slate / Gold</option>
+            <option value="midnight">Midnight Blue / Gold</option>
+            <option value="emerald">Emerald / Gold</option>
+            <option value="plum">Plum / Gold</option>
+          </select>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="templateSize">Template size</label>
+          <select id="templateSize" class="input">
+            <option value="original">Original</option>
+            <option value="framed-sm">Framed - Small</option>
+            <option value="framed-md">Framed - Medium</option>
+            <option value="framed-lg">Framed - Large</option>
+            <option value="full">Full page</option>
+          </select>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="density">Layout spacing</label>
+          <select id="density" class="input">
+            <option value="compact">Compact</option>
+            <option value="balanced">Balanced</option>
+            <option value="airy">Airy</option>
+          </select>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="orientation">Orientation</label>
+          <select id="orientation" class="input">
+            <option value="portrait">Vertical (portrait)</option>
+            <option value="landscape">Horizontal (landscape)</option>
+          </select>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="logoFile">Company logo</label>
+          <input id="logoFile" class="input" type="file" accept="image/*" />
+          <div class="hint">Tip: PNG with transparent background looks best.</div>
+          <button id="clearLogo" class="btn btn--ghost" type="button">Remove logo</button>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="companyName">Company name</label>
+          <input id="companyName" class="input" type="text" />
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="titleLine">Main title</label>
+          <textarea id="titleLine" class="input input--textarea" rows="2"></textarea>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="recipientName">Recipient name</label>
+          <input id="recipientName" class="input" type="text" />
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="subline">Subline</label>
+          <input id="subline" class="input" type="text" />
+          <div class="hint">Example: TOP KPI PERFORMER ● MARCH 2026</div>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="bodyText">Body</label>
+          <textarea id="bodyText" class="input input--textarea" rows="6"></textarea>
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="badgeText">Bottom badge</label>
+          <input id="badgeText" class="input" type="text" />
+        </div>
+
+        <div class="panel__section">
+          <div class="row">
+            <label class="label" for="extrasEnabled">Extras</label>
+            <label class="toggle">
+              <input id="extrasEnabled" type="checkbox" />
+              <span>Enable</span>
+            </label>
+          </div>
+          <label class="label" for="extrasPlacement">Extras placement</label>
+          <select id="extrasPlacement" class="input">
+            <option value="below-body">Below body</option>
+            <option value="above-footer">Above footer</option>
+            <option value="top-right">Top right</option>
+          </select>
+          <label class="label" for="extrasText">Extras text</label>
+          <textarea id="extrasText" class="input input--textarea" rows="4"></textarea>
+        </div>
+
+        <div class="panel__section">
+          <div class="row">
+            <label class="label" for="layoutMode">Layout</label>
+            <label class="toggle">
+              <input id="layoutMode" type="checkbox" />
+              <span>Enable drag</span>
+            </label>
+          </div>
+          <div class="hint">
+            Tip: Turn on “Enable drag”, then drag elements in the preview. Double‑click an element to reset it.
+          </div>
+          <button id="resetLayout" class="btn btn--ghost" type="button">Reset layout</button>
+        </div>
+
+        <div class="panel__footer">
+          <button id="exportPdf" class="btn btn--primary" type="button">Export PDF</button>
+          <button id="reset" class="btn" type="button">Reset</button>
+        </div>
+      </aside>
+
+      <main class="stage" aria-label="Certificate preview">
+        <section id="page" class="page theme--dark-gold" aria-label="Certificate page">
+          <div class="paper">
+            <div class="themeBg" aria-hidden="true"></div>
+            <div class="frame frame--outer" aria-hidden="true"></div>
+            <div class="frame frame--inner" aria-hidden="true"></div>
+
+            <header class="top movable" data-move="top" tabindex="0">
+              <div class="logoWrap movable" data-move="logo" tabindex="0" aria-label="Logo area">
+                <img id="logoImg" class="logo" alt="Company logo" />
+              </div>
+              <div class="company movable" data-move="company" tabindex="0">
+                <div
+                  id="companyNameView"
+                  class="company__name movable"
+                  data-move="companyName"
+                  tabindex="0"
+                  contenteditable="true"
+                  spellcheck="false"
+                ></div>
+              </div>
+            </header>
+
+            <div class="content movable" data-move="content" tabindex="0">
+              <div class="kicker movable" data-move="kicker" tabindex="0">CERTIFICATE OF EXCELLENCE</div>
+              <h1
+                id="titleLineView"
+                class="title movable"
+                data-move="title"
+                tabindex="0"
+                contenteditable="true"
+                spellcheck="false"
+              ></h1>
+
+              <div class="presented movable" data-move="presented" tabindex="0">
+                THIS CERTIFICATE IS PROUDLY PRESENTED TO
+              </div>
+
+              <div
+                id="recipientNameView"
+                class="name movable"
+                data-move="name"
+                tabindex="0"
+                contenteditable="true"
+                spellcheck="false"
+              ></div>
+
+              <div
+                id="sublineView"
+                class="subline movable"
+                data-move="subline"
+                tabindex="0"
+                contenteditable="true"
+                spellcheck="false"
+              ></div>
+
+              <div
+                id="bodyTextView"
+                class="body movable"
+                data-move="body"
+                tabindex="0"
+                contenteditable="true"
+                spellcheck="false"
+              ></div>
+
+              <div
+                id="extrasView"
+                class="extras extras--below-body movable"
+                data-move="extras"
+                tabindex="0"
+                contenteditable="true"
+                spellcheck="false"
+                aria-label="Extras text"
+              ></div>
+
+              <div class="pillRow movable" data-move="pillRow" tabindex="0">
+                <div
+                  id="monthPill"
+                  class="pill movable"
+                  data-move="pill"
+                  tabindex="0"
+                  contenteditable="true"
+                  spellcheck="false"
+                ></div>
+              </div>
+            </div>
+
+            <footer class="bottom movable" data-move="bottom" tabindex="0">
+              <div class="sig movable" data-move="sigLeft" tabindex="0">
+                <div class="sig__line">Yasir Abbas</div>
+                <div class="sig__label">AUTHORIZED SIGNATURE</div>
+              </div>
+
+              <div class="badge movable" data-move="badge" tabindex="0" aria-label="Badge">
+                <div class="badge__ring"></div>
+                <div id="badgeTextView" class="badge__text" contenteditable="true" spellcheck="false"></div>
+              </div>
+
+              <div class="sig movable" data-move="sigRight" tabindex="0">
+                <div class="sig__line">March 2026</div>
+                <div class="sig__label">DATE ISSUED</div>
+              </div>
+            </footer>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+

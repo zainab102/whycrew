@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+
+# Editor / tooling
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
