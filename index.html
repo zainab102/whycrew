@@ -101,6 +101,17 @@
         </div>
 
         <div class="panel__section">
+          <label class="label" for="signatureName">Authorized signature name</label>
+          <input id="signatureName" class="input" type="text" />
+        </div>
+
+        <div class="panel__section">
+          <label class="label" for="issueDate">Issue date</label>
+          <input id="issueDate" class="input" type="text" />
+          <div class="hint">Example: 23 APR 2026</div>
+        </div>
+
+        <div class="panel__section">
           <div class="row">
             <label class="label" for="extrasEnabled">Extras</label>
             <label class="toggle">
@@ -227,6 +238,14 @@
 
             <footer class="bottom movable" data-move="bottom" tabindex="0">
               <div class="sig movable" data-move="sigLeft" tabindex="0">
+                <div
+                  id="signatureNameView"
+                  class="sig__name movable"
+                  data-move="sigName"
+                  tabindex="0"
+                  contenteditable="true"
+                  spellcheck="false"
+                ></div>
                 <div class="sig__line"></div>
                 <div class="sig__label">AUTHORIZED SIGNATURE</div>
               </div>
@@ -236,9 +255,15 @@
                 <div id="badgeTextView" class="badge__text" contenteditable="true" spellcheck="false"></div>
               </div>
 
-              <div class="sig movable" data-move="sigRight" tabindex="0">
-                <div class="sig__line"></div>
-                <div class="sig__label">DATE ISSUED</div>
+              <div class="issueDate movable" data-move="issueDate" tabindex="0" aria-label="Issue date">
+                <div class="issueDate__label">ISSUE DATE</div>
+                <div
+                  id="issueDateView"
+                  class="issueDate__value"
+                  tabindex="0"
+                  contenteditable="true"
+                  spellcheck="false"
+                ></div>
               </div>
             </footer>
           </div>

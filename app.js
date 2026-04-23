@@ -158,6 +158,8 @@ function boot() {
       "Your results this month stand as a benchmark of excellence.",
     monthPill: "MARCH 2026",
     badgeText: "KPI\nAWARD",
+    signatureName: "YASIR ABBAS",
+    issueDate: "23 APR 2026",
     logoDataUrl: "",
   };
 
@@ -185,6 +187,8 @@ function boot() {
   const subline = $("subline");
   const bodyText = $("bodyText");
   const badgeText = $("badgeText");
+  const signatureName = $("signatureName");
+  const issueDate = $("issueDate");
   const extrasEnabled = $("extrasEnabled");
   const extrasPlacement = $("extrasPlacement");
   const extrasText = $("extrasText");
@@ -197,6 +201,8 @@ function boot() {
   const monthPill = $("monthPill");
   const badgeTextView = $("badgeTextView");
   const extrasView = $("extrasView");
+  const signatureNameView = $("signatureNameView");
+  const issueDateView = $("issueDateView");
   const paper = document.querySelector("#page .paper");
   if (!paper) throw new Error("Missing .paper");
 
@@ -303,6 +309,8 @@ function boot() {
     subline.value = state.subline;
     bodyText.value = state.bodyText;
     badgeText.value = state.badgeText;
+    signatureName.value = state.signatureName;
+    issueDate.value = state.issueDate;
 
     setEditable(companyNameView, state.companyName);
     setEditable(titleLineView, state.titleLine);
@@ -311,6 +319,8 @@ function boot() {
     setEditable(bodyTextView, state.bodyText);
     setEditable(monthPill, state.monthPill);
     setEditable(badgeTextView, state.badgeText);
+    setEditable(signatureNameView, state.signatureName);
+    setEditable(issueDateView, state.issueDate);
 
     setLogoDataUrl(state.logoDataUrl);
   }
@@ -482,6 +492,8 @@ function boot() {
   wireInputText(subline, "subline", sublineView);
   wireInputText(bodyText, "bodyText", bodyTextView);
   wireInputText(badgeText, "badgeText", badgeTextView);
+  wireInputText(signatureName, "signatureName", signatureNameView);
+  wireInputText(issueDate, "issueDate", issueDateView);
 
   wireEditable(companyNameView, "companyName", companyName);
   wireEditable(titleLineView, "titleLine", titleLine);
@@ -491,6 +503,8 @@ function boot() {
   wireEditable(monthPill, "monthPill", null);
   wireEditable(badgeTextView, "badgeText", badgeText);
   wireEditable(extrasView, "extrasText", extrasText);
+  wireEditable(signatureNameView, "signatureName", signatureName);
+  wireEditable(issueDateView, "issueDate", issueDate);
 
   logoFile.addEventListener("change", async () => {
     const file = logoFile.files?.[0];
